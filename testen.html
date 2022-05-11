@@ -257,7 +257,7 @@
             <td colspan="5"><input style="width: 94%;" /></td>
           </tr>
           <tr>
-            <td colspan="2">Weitere Auslagen (Auflistung per Mail)<br>z.B. Park-/Mautgebühren, <b>keine</b> Vignette,
+            <td colspan="2">Weitere Auslagen (Auflistung per Mail) z.B. Park-/Mautgebühren (nur für schulungsrelevante PKW),<br><b>keine</b> Vignette,
               Schulungsverpflegung
             </td>
 
@@ -283,31 +283,31 @@
           function berechnung() {
             let bahnkosten = eval(document.getElementById("bahn").value.replace(/,/g, "."));
             if (isNaN(bahnkosten)) {
-              alert("Bitte füge eine Nummber ein!");
+              alert("Bitte füge eine Nummer ein!");
             }
             let bahncard = document.getElementById("auswahl_bahncard").value;
             let bahnzuschlag = bahncard * bahnkosten;
 
             let andere_oevm = eval(document.getElementById("andere_oevm").value.replace(/,/g, "."));
             if (isNaN(andere_oevm)) {
-              alert(andere_oevm + "Bitte füge eine Nummber ein!");
+              alert(andere_oevm + "Bitte füge eine Nummer ein!");
             }
             let rad_km = document.getElementById("rad_km").value.replace(/,/g, ".");
             if (isNaN(rad_km)) {
-              alert(rad_km + "Bitte füge eine Nummber ein!");
+              alert(rad_km + "Bitte füge eine Nummer ein!");
             }
-            let rad_pauschale = 0.2
+            let rad_pauschale = 0.25
             let radkosten = rad_km * rad_pauschale;
             let pkw_km = document.getElementById("pkw_km").value.replace(/,/g, ".");
             if (isNaN(pkw_km)) {
-              alert(pkw_km + "Bitte füge eine Nummber ein!");
+              alert(pkw_km + "Bitte füge eine Nummer ein!");
             }
             let pkw_pauschale = document.getElementById("auswahl_mitfahr").value;
             let pkwkosten = pkw_km * pkw_pauschale;
             let auslagen = eval(document.getElementById("weiterekosten").value.replace(/,/g, "."));
             console.log(auslagen)
             if (isNaN(auslagen)) {
-              alert(auslagen + "Bitte füge eine Nummber ein!");
+              alert(auslagen + "Bitte füge eine Nummer ein!");
             }
 
 
