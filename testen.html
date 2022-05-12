@@ -263,9 +263,9 @@
                 </select>
               </form>
             </td>
-            <td> <input id="pkw_km" onchange="berechnung()" type="text" class="input_number" />km</td>
+            <td> <input id="pkw_km2" onchange="berechnung()" type="text" class="input_number" />km</td>
 
-            <td align="right" id="pkw_geld">0 &euro;</td>
+            <td align="right" id="pkw_geld2">0 &euro;</td>
 
             <tr>
             <td> PKW </td>
@@ -357,6 +357,14 @@
             if (isNaN(auslagen)) {
               alert(auslagen + "Bitte füge eine Nummer ein!");
             }
+            let pkw_pauschale2 = document.getElementById("auswahl_mitfahr").value;
+            let pkwkosten2 = pkw_km2 * pkw_pauschale2;
+            let auslagen = eval(document.getElementById("weiterekosten").value.replace(/,/g, "."));
+            console.log(auslagen)
+            if (isNaN(auslagen)) {
+              alert(auslagen + "Bitte füge eine Nummer ein!");
+            }
+
 
 
             let sum = radkosten + pkwkosten + bahnzuschlag + bahnkosten + andere_oevm + auslagen;
