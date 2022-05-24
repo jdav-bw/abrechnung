@@ -226,7 +226,7 @@
             <td> Anzahl Personen <br>im Auto </td>
             <td>
               <form>
-                <select id="auswahl_mitfahr" onchange="berechnung()">
+                <select id="auswahl_mitfahr-1" onchange="berechnung()">
                   <option value="0.07" selected>1</option>
                   <option value="0.1">2</option>
                   <option value="0.15">3</option>
@@ -240,16 +240,16 @@
                 </select>
               </form>
             </td>
-            <td> <input id="pkw_km" onchange="berechnung()" type="text" class="input_number" />km</td>
+            <td> <input id="pkw_km-1" onchange="berechnung()" type="text" class="input_number" />km</td>
 
-            <td align="right" id="pkw_geld">0 &euro;</td>
+            <td align="right" id="pkw_geld-1">0 &euro;</td>
             
             <tr>
             <td> PKW </td>
             <td> Anzahl Personen <br>im Auto </td>
             <td>
               <form>
-                <select id="auswahl_mitfahr" onchange="berechnung()">
+                <select id="auswahl_mitfahr-2" onchange="berechnung()">
                   <option value="0.07" selected>1</option>
                   <option value="0.1">2</option>
                   <option value="0.15">3</option>
@@ -263,16 +263,16 @@
                 </select>
               </form>
             </td>
-            <td> <input id="pkw_km" onchange="berechnung()" type="text" class="input_number" />km</td>
+            <td> <input id="pkw_km-2" onchange="berechnung()" type="text" class="input_number" />km</td>
 
-            <td align="right" id="pkw_geld">0 &euro;</td>
+            <td align="right" id="pkw_geld-2">0 &euro;</td>
 
             <tr>
             <td> PKW </td>
             <td> Anzahl Personen <br>im Auto </td>
             <td>
               <form>
-                <select id="auswahl_mitfahr" onchange="berechnung()">
+                <select id="auswahl_mitfahr-3" onchange="berechnung()">
                   <option value="0.07" selected>1</option>
                   <option value="0.1">2</option>
                   <option value="0.15">3</option>
@@ -286,9 +286,9 @@
                 </select>
               </form>
             </td>
-            <td> <input id="pkw_km" onchange="berechnung()" type="text" class="input_number" />km</td>
+            <td> <input id="pkw_km-3" onchange="berechnung()" type="text" class="input_number" />km</td>
 
-            <td align="right" id="pkw_geld">0 &euro;</td>
+            <td align="right" id="pkw_geld-3">0 &euro;</td>
             
                         
 
@@ -347,12 +347,16 @@
             let rad_pauschale = 0.25
             let radkosten = rad_km * rad_pauschale;
             
-            let pkw_km = document.getElementById("pkw_km").value.replace(/,/g, ".");
-            if (isNaN(pkw_km)) {
-              alert(pkw_km + "Bitte füge eine Nummer ein!");
+
+            for (let i = 1; i <=3, ++i) {
+              let pkw_km = document.getElementById("pkw_km-"+i).value.replace(/,/g, ".");
+              if (isNaN(pkw_km)) {
+                alert(pkw_km + "Bitte füge eine Nummer ein!");
+              }
+              let pkw_pauschale = document.getElementById("auswahl_mitfahr-"+i).value;
+              let pkwkosten = pkw_km * pkw_pauschale;
+              document.getElementById("pkw_geld-"+i).innerHTML = pkwkosten.toFixed(2).replace(".", ",") + "&euro;";
             }
-            let pkw_pauschale = document.getElementById("auswahl_mitfahr").value;
-            let pkwkosten = pkw_km * pkw_pauschale;
             
             let auslagen = eval(document.getElementById("weiterekosten").value.replace(/,/g, "."));
             console.log(auslagen)
@@ -369,7 +373,7 @@
             document.getElementById("bahncardzuschlag").innerHTML = bahnzuschlag.toFixed(2).replace(".", ",") +
               "&euro;";
             document.getElementById("rad_geld").innerHTML = radkosten.toFixed(2).replace(".", ",") + "&euro;";
-            document.getElementById("pkw_geld").innerHTML = pkwkosten.toFixed(2).replace(".", ",") + "&euro;";
+            
             document.getElementById("weiter_kosten").innerHTML = auslagen.toFixed(2).replace(".", ",") + "&euro;";
             document.getElementById("summe").innerHTML = "<b>" + sum.toFixed(2).replace(".", ",") + "&euro;</b>";
           }
