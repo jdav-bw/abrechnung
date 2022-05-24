@@ -347,7 +347,7 @@
             let rad_pauschale = 0.25
             let radkosten = rad_km * rad_pauschale;
             
-
+            let pkw_sum = 0;
             for (let i = 1; i <=3; ++i) {
               let pkw_km = document.getElementById("pkw_km-"+i).value.replace(/,/g, ".");
               if (isNaN(pkw_km)) {
@@ -355,6 +355,7 @@
               }
               let pkw_pauschale = document.getElementById("auswahl_mitfahr-"+i).value;
               let pkwkosten = pkw_km * pkw_pauschale;
+              pkw_sum += pkwkosten;
               document.getElementById("pkw_geld-"+i).innerHTML = pkwkosten.toFixed(2).replace(".", ",") + "&euro;";
             }
             
@@ -366,7 +367,7 @@
             
 
 
-            let sum = radkosten + pkwkosten + bahnzuschlag + bahnkosten + andere_oevm + auslagen;
+            let sum = radkosten + pkw_sum + bahnzuschlag + bahnkosten + andere_oevm + auslagen;
 
             document.getElementById("bahnkosten").innerHTML = bahnkosten + "&euro;";
             document.getElementById("oevmkosten").innerHTML = andere_oevm.toFixed(2).replace(".", ",") + "&euro;";
