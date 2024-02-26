@@ -222,6 +222,14 @@
             <td align="right" id="rad_geld"> 0 &euro;</td>
           </tr>
           <tr>
+            <td> Fahrrad </td>
+            <td></td>
+            <td></td>
+            <td>enthaltende Pauschale für ersten 30km: </td>
+
+            <td align="right" id="rad_geld_30"> 0 &euro;</td>
+          </tr>
+          <tr>
             <td> PKW </td>
             <td> Anzahl Personen im Auto </td>
             <td>
@@ -377,8 +385,9 @@
             document.getElementById("oevmkosten").innerHTML = andere_oevm.toFixed(2).replace(".", ",") + "&euro;";
             document.getElementById("bahncardzuschlag").innerHTML = bahnzuschlag.toFixed(2).replace(".", ",") +
               "&euro;";
-            document.getElementById("rad_geld").innerHTML = radkosten.toFixed(2).replace(".", ",") + "&euro; (inkl." + rad_erste_km_kosten+ "&euro;)";
-            
+            document.getElementById("rad_geld").innerHTML = radkosten.toFixed(2).replace(".", ",") + "&euro;";
+            document.getElementById("rad_geld").innerHTML = rad_erste_km_kosten.toFixed(2).replace(".", ",") + "&euro;";
+
             document.getElementById("weiter_kosten").innerHTML = auslagen.toFixed(2).replace(".", ",") + "&euro;";
             document.getElementById("summe").innerHTML = "<b>" + sum.toFixed(2).replace(".", ",") + "&euro;</b>";
           }
