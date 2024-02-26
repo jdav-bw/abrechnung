@@ -348,7 +348,7 @@
             let rad_pauschale = 0.25;
             let rad_erste_km= 0.75;
             let radkosten = rad_km * rad_pauschale;
-            let rad_erste_km_kosten = min(30, rad_km) * 0.75;
+            let rad_erste_km_kosten = Math.min(30, rad_km) * 0.75;
             radkosten = radkosten + rad_erste_km_kosten;
             
             let pkw_sum = 0;
