@@ -229,11 +229,11 @@
           </tr>
           <tr>
         <td></td>
-           <td>Klimapauschale für die ersten 30km</td> 
+          <!-- <td>Klimapauschale für die ersten 30km</td> 
             <td></td>
             <td> </td>
 
-            <td align="right" id="rad_geld_30"> 0 &euro;</td>
+            <td align="right" id="rad_geld_30"> 0 &euro;</td> -->
           </tr>
           <tr>
             <td> PKW </td>
@@ -360,10 +360,10 @@
             }
             
             let rad_pauschale = 0.25;
-            let rad_erste_km= 0.75;
+           <!--let rad_erste_km= 0.75;-->
             let radkosten = rad_km * rad_pauschale;
-            let rad_erste_km_kosten = Math.min(30, rad_km) * 0.75;
-            //radkosten = radkosten + rad_erste_km_kosten;
+            <!--let rad_erste_km_kosten = Math.min(30, rad_km) * 0.75;-->
+            //radkosten = radkosten <!-- + rad_erste_km_kosten-->;
             
             let pkw_sum = 0;
             for (let i = 1; i <=3; ++i) {
@@ -385,7 +385,7 @@
             
 
 
-            let sum = radkosten + rad_erste_km_kosten + pkw_sum + bahnzuschlag + bahnkosten + andere_oevm + auslagen;
+            let sum = radkosten + pkw_sum + bahnzuschlag + bahnkosten + andere_oevm + auslagen;
 
             document.getElementById("bahnkosten").innerHTML = bahnkosten + "&euro;";
             document.getElementById("oevmkosten").innerHTML = andere_oevm.toFixed(2).replace(".", ",") + "&euro;";
