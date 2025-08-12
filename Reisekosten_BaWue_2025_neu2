@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    @media screen {
+      page {
+        background: white;
+        display: block;
+        margin: 0 auto;
+        font-family: 'Arimo', sans-serif;
+      }
+
+      page[size="A4"] {
+        width: 20cm;
+      }
+
+      #logo {
+        width: 5cm;
+      }
+
+      div {
+        margin-top: 2cm;
+        margin-bottom: 2cm;
+        margin-right: 1cm;
+        margin-left: 1cm;
+      }
+
+      h1 {
+        padding-top: 0cm;
+        margin-bottom: 0;
+      }
+
+      h4 {
+        margin-block-start: 1em;
+        margin-block-end: 0em;
+      }
+
+      ul,
+      p {
+        font-size: small;
+      }
+
+      table {
+        width: 100%;
+        align-items: center;
+      }
+
+      input {
+        width: 70%;
+      }
+
+      .input_number {
+        width: 1.5cm;
+        text-align: right;
+      }
+
+      select {
+        width: 1.5cm;
+      }
+
+      #print_button {
+        text-align: center;
+      }
+    }
+
+    @media print {
+      page {
+        font-family: 'Arimo', sans-serif;
+      }
+
+      #logo {
+        width: 5cm;
+      }
+
+      div {
+        margin-top: 0.2cm;
+        margin-bottom: 0.2cm;
+        margin-right: 1cm;
+        margin-left: 1cm;
+      }
+
+      h1 {
+        padding-top: 0cm;
+        margin-bottom: 0;
+      }
+
+      h4 {
+        margin-block-start: 1em;
+        margin-block-end: 0em;
+      }
+
+      ul,
+      p {
+        font-size: 11px;
+      }
+
+      td {
+        font-size: 11px;
+      }
+
+      table {
+        width: 100%;
+        align-items: center;
+      }
+
+      input {
+        width: 70%;
+      }
+
+      .input_number {
+        width: 1.5cm;
+        text-align: right;
+      }
+
+      select {
+        width: 1.5cm;
+      }
+
+      .noprint {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <page size="A4">
+    <div>
+      <img align="right" id="logo" src="jdavLogo_Baden-Wuerttemberg_Grst_RGB.svg">
+      <h1 class="center">Reisekostenabrechnung</h1>
+
+      <p>JDAV Landesgeschäftsstelle Baden-Württemberg e.V. <br> Rotebühlstraße 59a <br>70178 Stuttgart</p>
+      <hr />
+
+      <table>
+        <tr>
+          <td><input type="text" /></td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr>
+          <td>Vorname</td>
+          <td>Nachname</td>
+        </tr>
+        <tr>
+          <td><input /></td>
+          <td><input type="text" /></td>
+        </tr>
+        <tr>
+          <td>Veranstaltung / Schulung</td>
+          <td>Schulungsnummer</td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td>Hinreise am</td>
+          <td><input type="text" /></td>
+          <td>von <input type="text" /></td>
+          <td>nach <input type="text" /></td>
+        </tr>
+        <tr>
+          <td>Rückreise am</td>
+          <td><input type="text" /></td>
+          <td>von <input type="text" /></td>
+          <td>nach <input type="text" /></td>
+        </tr>
+      </table>
+
+      <table>
+        <tr>
+          <td>Zurückgelegte Kilometer (Hin- und Rückfahrt) für die Emissionsbilanzierung.</td>
+          <td><input type="text" /> km</td>
+        </tr>
+      </table>
+
+      <h4>Verkehrsmittel:</h4>
+      <table>
+        <tr>
+          <td>Zug</td>
+          <td>DB, 2. Klasse inkl. Fahrradticket</td>
+          <td></td>
+          <td><input class="input_number" id="bahn" onchange="berechnung()" type="text" value="0" />&euro;</td>
+          <td align="right" id="bahnkosten">0 &euro;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>BahnCard</td>
+          <td>
+            <select id="auswahl_bahncard" onchange="berechnung()">
+              <option value="0" selected>Keine</option>
+              <option value="0.06">25</option>
+              <option value="0.12">50</option>
+            </select>
+          </td>
+          <td></td>
+          <td align="right" id="bahncardzuschlag"></td>
+        </tr>
+        <tr>
+          <td>Andere ÖV (z.B. Bus)</td>
+          <td></td>
+          <td></td>
+          <td><input id="andere_oevm" onchange="berechnung()" type="text" value="0" class="input_number" />&euro;</td>
+          <td align="right" id="oevmkosten">0 &euro;</td>
+        </tr>
+        <tr>
+          <td>Fahrrad</td>
+          <td></td>
+          <td></td>
+          <td><input id="rad_km" onchange="berechnung()" type="text" class="input_number" />km</td>
+          <td align="right" id="rad_geld">0 &euro;</td>
+        </tr>
+
+        <!-- PKW Zeile 1 -->
+        <tr>
+          <td>PKW</td>
+          <td>Anzahl Personen im Auto</td>
+          <td>
+            <select id="auswahl_mitfahr-1" onchange="berechnung()">
+              <option value="0.07" selected>1</option>
+              <option value="0.1">2</option>
+              <option value="0.15">3</option>
+              <option value="0.2">4</option>
+              <option value="0.25">5</option>
+              <option value="0.27">6</option>
+              <option value="0.29">7</option>
+              <option value="0.31">8</option>
+              <option value="0.33">9</option>
+              <option value="0.25">schulungsrelevant</option>
+            </select>
+          </td>
+          <td><input id="pkw_km-1" onchange="berechnung()" type="text" class="input_number" />km</td>
+          <td align="right" id="pkw_geld-1">0 &euro;</td>
+        </tr>
+
+        <!-- PKW Zeile 2 -->
+        <tr>
+          <td>PKW</td>
+          <td>Anzahl Personen im Auto</td>
+          <td>
+            <select id="auswahl_mitfahr-2" onchange="berechnung()">
+              <option value="0.07" selected>1</option>
+              <option value="0.1">2</option>
+              <option value="0.15">3</option>
+              <option value="0.2">4</option>
+              <option value="0.25">5</option>
+              <option value="0.27">6</option>
+              <option value="0.29">7</option>
+              <option value="0.31">8</option>
+              <option value="0.33">9</option>
+              <option value="0.25">schulungsrelevant</option>
+            </select>
+          </td>
+          <td><input id="pkw_km-2" onchange="berechnung()" type="text" class="input_number" />km</td>
+          <td align="right" id="pkw_geld-2">0 &euro;</td>
+        </tr>
+
+        <!-- PKW Zeile 3 (auskommentiert) -->
+        <!--
+        <tr>
+          <td>PKW</td>
+          <td>Anzahl Personen im Auto</td>
+          <td>
+            <select id="auswahl_mitfahr-3" onchange="berechnung()">
+              <option value="0.07" selected>1</option>
+              <option value="0.1">2</option>
+              <option value="0.15">3</option>
+              <option value="0.2">4</option>
+              <option value="0.25">5</option>
+              <option value="0.27">6</option>
+              <option value="0.29">7</option>
+              <option value="0.31">8</option>
+              <option value="0.33">9</option>
+              <option value="0.25">
+     <tr>
+            <td> Name Mitfahrer*innen:</td>
+            <td></td>
+            <td></td>
+
+
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="5"><input style="width: 94%;" /></td>
+          </tr>
+
+          <tr>
+            <td colspan="2"> Begründung für Auto (Schulungsort, Verpflegung, Material, Mitfahrer*innen, sonstiges):</td>
+            <td></td>
+            <td></td>
+
+
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="5"><input style="width: 94%;" /></td>
+          </tr>
+          
+          <tr>
+            <td colspan="2">Weitere Auslagen (Auflistung per Mail) z.B. Park-/Mautgebühren (nur für schulungsrelevante PKW), <b>keine</b> Vignette,
+              Schulungsverpflegung
+            </td>
+
+            <td></td>
+            <td><input id="weiterekosten" onchange="berechnung()" type="text" value="0" class="input_number" />&euro;
+            </td>
+
+            <td align="right" id="weiter_kosten"> 0 &euro;</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+
+
+            <td align="right"><b>Summe</b></td>
+            <td align="right" id="summe" class="input_number"></td>
+          </tr>
+        </table>
+
+        <!--SCRIPT stellt alle Berechnungen an-->
+        <script>
+          function berechnung() {
+            let bahnkosten = eval(document.getElementById("bahn").value.replace(/,/g, "."));
+            if (isNaN(bahnkosten)) {
+              alert("Bitte füge eine Nummer ein!");
+            }
+            let bahncard = document.getElementById("auswahl_bahncard").value;
+            let bahnzuschlag = bahncard * bahnkosten;
+
+            let andere_oevm = eval(document.getElementById("andere_oevm").value.replace(/,/g, "."));
+            if (isNaN(andere_oevm)) {
+              alert(andere_oevm + "Bitte füge eine Nummer ein!");
+            }
+            let rad_km = document.getElementById("rad_km").value.replace(/,/g, ".");
+            if (isNaN(rad_km)) {
+              alert(rad_km + "Bitte füge eine Nummer ein!");
+            }
+            let rad_pauschale = 0.25
+            let radkosten = rad_km * rad_pauschale;
+            
+            let pkw_sum = 0;
+            for (let i = 1; i <=3; ++i) {
+              let pkw_km = document.getElementById("pkw_km-"+i).value.replace(/,/g, ".");
+              if (isNaN(pkw_km)) {
+                alert(pkw_km + "Bitte füge eine Nummer ein!");
+              }
+              let pkw_pauschale = document.getElementById("auswahl_mitfahr-"+i).value;
+              let pkwkosten = pkw_km * pkw_pauschale;
+              pkw_sum += pkwkosten;
+              document.getElementById("pkw_geld-"+i).innerHTML = pkwkosten.toFixed(2).replace(".", ",") + "&euro;";
+            }
+            
+            let auslagen = eval(document.getElementById("weiterekosten").value.replace(/,/g, "."));
+            console.log(auslagen)
+            if (isNaN(auslagen)) {
+              alert(auslagen + "Bitte füge eine Nummer ein!");
+            }
+            
+
+
+            let sum = radkosten + pkw_sum + bahnzuschlag + bahnkosten + andere_oevm + auslagen;
+
+            document.getElementById("bahnkosten").innerHTML = bahnkosten + "&euro;";
+            document.getElementById("oevmkosten").innerHTML = andere_oevm.toFixed(2).replace(".", ",") + "&euro;";
+            document.getElementById("bahncardzuschlag").innerHTML = bahnzuschlag.toFixed(2).replace(".", ",") +
+              "&euro;";
+            document.getElementById("rad_geld").innerHTML = radkosten.toFixed(2).replace(".", ",") + "&euro;";
+            
+            document.getElementById("weiter_kosten").innerHTML = auslagen.toFixed(2).replace(".", ",") + "&euro;";
+            document.getElementById("summe").innerHTML = "<b>" + sum.toFixed(2).replace(".", ",") + "&euro;</b>";
+          }
+        </script>
+        <!--SCRIPT ENDE-->
+
+        <hr />
+        <h4>Fahrkostensätze (ab Juni 2022):</h3>
+          <ul>
+            <li>Zug / Andere ÖV: wird voll erstattet; mit BahnCard 25 Zuschuss von 6%; mit BahnCard 50 Zuschuss von 12%
+            </li>
+            <li>Fahrrad:
+              0,25 €/km. Fahrradtickets Bus/Bahn sowie Parktickets für Fahrräder werden erstattet.</li>
+            <li>PKW/Kleinbus: 1 Person = 0,07 €/km; 2 Personen = 0,10 €/km; 3 Personen = 0,15 €/km; 4 Personen = 0,2 €/km; 5 Personen 0,25 €/km;
+              jede weitere Person +0,02 €/km</li>
+            <li>Bei Anreise außerhalb Baden-Württembergs werden max. 100€ erstattet. 
+              Für die Erstattung des Differenzbetrags frage am besten bei deiner Sektion nach. </li>
+          </ul>
+          <h4>Ich bitte um Überweisung auf:</h3>
+            <table>
+              <tr>
+                <td>IBAN</td>
+                <td><input type="text" style="width: 80%;" /></td>
+
+                <td>BIC</td>
+                <td><input type="text" style="width: 100%;" /></td>
+              </tr>
+            </table>
+            <p>Die Reisekostenabrechnung muss bis spätestens 4 Wochen nach Schulungsende bei der Geschäftsstelle
+              eingegangen
+              sein. Danach wird eine Gebühr von max. 50,00€ von der Reisekostenabrechnung einbehalten. Nach 8 Wochen
+              wird
+              nichts mehr erstattet. Bitte alle Belege <b>digital</b> dem PDF anhängen/ mitschicken (info@jdav-bw.de).
+            </p>
+            <p>Ich versichere die Richtigkeit meiner Angaben.</p>
+
+            <table style="width: 90%;">
+              <tr>
+       <!--         <td><input type="text" style="width: 70%;"></td> -->
+                <td id="date"></td>
+                <td>
+                  <hr />
+                </td>
+              </tr>
+              <tr>
+       <!--          <td> Ort </td>   -->
+                <td> Datum </td>
+                <td>Unterschrift</td>
+              </tr>
+
+            </table>
+
+            <!--Funktion um das Heutige Datum auszugeben Date: -->
+            <script>
+              function format(date) {
+                var d = date.getDate();
+                var m = date.getMonth() + 1;
+                var y = date.getFullYear();
+                return "" + (d <= 9 ? "0" + d : d) + "." + (m <= 9 ? "0" + m : m) + "." + y;
+              }
+              var today = new Date();
+              var dateString = format(today);
+              document.getElementById("date").innerHTML = dateString;
+            </script>
+    </div>
+  </page>
+  <div id="print_button">
+    <button class="noprint" onClick="javascript:self.print()">Seite drucken / PDF erstellen</button>
+  </div>
+</body>
+
+</html>
+
