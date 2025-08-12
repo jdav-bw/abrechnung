@@ -2,7 +2,6 @@
 <html>
 
 <head>
-  <!-- Style von der Page:-->
   <style>
     @media screen {
       page {
@@ -30,7 +29,6 @@
       h1 {
         padding-top: 0cm;
         margin-bottom: 0;
-
       }
 
       h4 {
@@ -46,7 +44,6 @@
       table {
         width: 100%;
         align-items: center;
-
       }
 
       input {
@@ -65,9 +62,7 @@
       #print_button {
         text-align: center;
       }
-
     }
-
 
     @media print {
       page {
@@ -88,7 +83,6 @@
       h1 {
         padding-top: 0cm;
         margin-bottom: 0;
-
       }
 
       h4 {
@@ -108,7 +102,6 @@
       table {
         width: 100%;
         align-items: center;
-
       }
 
       input {
@@ -127,11 +120,8 @@
       .noprint {
         display: none;
       }
-
-
     }
   </style>
-
 </head>
 
 <body>
@@ -140,165 +130,150 @@
       <img align="right" id="logo" src="jdavLogo_Baden-Wuerttemberg_Grst_RGB.svg">
       <h1 class="center">Reisekostenabrechnung</h1>
 
-
       <p>JDAV Landesgeschäftsstelle Baden-Württemberg e.V. <br> Rotebühlstraße 59a <br>70178 Stuttgart</p>
       <hr />
+
       <table>
         <tr>
           <td><input type="text" /></td>
           <td><input type="text" /></td>
         </tr>
         <tr>
-          <td> Vorname </td>
-          <td> Nachname </td>
+          <td>Vorname</td>
+          <td>Nachname</td>
         </tr>
         <tr>
-
           <td><input /></td>
-
-          <td><input type="text" />
-          <td>
+          <td><input type="text" /></td>
         </tr>
         <tr>
           <td>Veranstaltung / Schulung</td>
           <td>Schulungsnummer</td>
         </tr>
       </table>
+
       <table>
         <tr>
           <td>Hinreise am</td>
           <td><input type="text" /></td>
-          <td>von <input type="text" /> </td>
+          <td>von <input type="text" /></td>
           <td>nach <input type="text" /></td>
         </tr>
         <tr>
           <td>Rückreise am</td>
           <td><input type="text" /></td>
-          <td>von <input type="text" /> </td>
+          <td>von <input type="text" /></td>
           <td>nach <input type="text" /></td>
         </tr>
       </table>
-        <table>
+
+      <table>
         <tr>
-          <td>  Zurückgelegte Kilometer (Hin- und Rückfahrt) für die Emissionsbilanzierung.</td>
+          <td>Zurückgelegte Kilometer (Hin- und Rückfahrt) für die Emissionsbilanzierung.</td>
           <td><input type="text" /> km</td>
-         </tr>
-        </table>
+        </tr>
+      </table>
 
-      <h4>Verkehrsmittel:</h3>
-        <table>
-          <tr>
-            <td> Zug </td>
-            <td> DB, 2. Klasse inkl. Fahrradticket</td>
-            <td></td>
-            <td><input class="input_number" id="bahn" onchange="berechnung()" type="text" value="0" />&euro;</td>
-            <td align="right" id="bahnkosten">0 &euro;</td>
+      <h4>Verkehrsmittel:</h4>
+      <table>
+        <tr>
+          <td>Zug</td>
+          <td>DB, 2. Klasse inkl. Fahrradticket</td>
+          <td></td>
+          <td><input class="input_number" id="bahn" onchange="berechnung()" type="text" value="0" />&euro;</td>
+          <td align="right" id="bahnkosten">0 &euro;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>BahnCard</td>
+          <td>
+            <select id="auswahl_bahncard" onchange="berechnung()">
+              <option value="0" selected>Keine</option>
+              <option value="0.06">25</option>
+              <option value="0.12">50</option>
+            </select>
+          </td>
+          <td></td>
+          <td align="right" id="bahncardzuschlag"></td>
+        </tr>
+        <tr>
+          <td>Andere ÖV (z.B. Bus)</td>
+          <td></td>
+          <td></td>
+          <td><input id="andere_oevm" onchange="berechnung()" type="text" value="0" class="input_number" />&euro;</td>
+          <td align="right" id="oevmkosten">0 &euro;</td>
+        </tr>
+        <tr>
+          <td>Fahrrad</td>
+          <td></td>
+          <td></td>
+          <td><input id="rad_km" onchange="berechnung()" type="text" class="input_number" />km</td>
+          <td align="right" id="rad_geld">0 &euro;</td>
+        </tr>
 
-          </tr>
-          <tr>
-            <td> </td>
-            <td> BahnCard </td>
-            <td>
-              <form>
-                <select id="auswahl_bahncard" onchange="berechnung()">
-                  <option value="0" selected>Keine</option>
-                  <option value="0.06">25</option>
-                  <option value="0.12">50</option>
-                </select>
-              </form>
-            </td>
+        <!-- PKW Zeile 1 -->
+        <tr>
+          <td>PKW</td>
+          <td>Anzahl Personen im Auto</td>
+          <td>
+            <select id="auswahl_mitfahr-1" onchange="berechnung()">
+              <option value="0.07" selected>1</option>
+              <option value="0.1">2</option>
+              <option value="0.15">3</option>
+              <option value="0.2">4</option>
+              <option value="0.25">5</option>
+              <option value="0.27">6</option>
+              <option value="0.29">7</option>
+              <option value="0.31">8</option>
+              <option value="0.33">9</option>
+              <option value="0.25">schulungsrelevant</option>
+            </select>
+          </td>
+          <td><input id="pkw_km-1" onchange="berechnung()" type="text" class="input_number" />km</td>
+          <td align="right" id="pkw_geld-1">0 &euro;</td>
+        </tr>
 
-            <td></td>
-            <td align="right" id="bahncardzuschlag"></td>
-          </tr>
-          <tr>
-            <td> Andere ÖV (z.B. Bus) </td>
-            <td></td>
-            <td></td>
-            <td><input id="andere_oevm" onchange="berechnung()" type="text" value="0" class="input_number" />&euro;</td>
+        <!-- PKW Zeile 2 -->
+        <tr>
+          <td>PKW</td>
+          <td>Anzahl Personen im Auto</td>
+          <td>
+            <select id="auswahl_mitfahr-2" onchange="berechnung()">
+              <option value="0.07" selected>1</option>
+              <option value="0.1">2</option>
+              <option value="0.15">3</option>
+              <option value="0.2">4</option>
+              <option value="0.25">5</option>
+              <option value="0.27">6</option>
+              <option value="0.29">7</option>
+              <option value="0.31">8</option>
+              <option value="0.33">9</option>
+              <option value="0.25">schulungsrelevant</option>
+            </select>
+          </td>
+          <td><input id="pkw_km-2" onchange="berechnung()" type="text" class="input_number" />km</td>
+          <td align="right" id="pkw_geld-2">0 &euro;</td>
+        </tr>
 
-            <td align="right" id="oevmkosten"> 0 &euro;</td>
-          </tr>
-          <tr>
-            <td> Fahrrad </td>
-            <td></td>
-            <td></td>
-            <td> <input id="rad_km" onchange="berechnung()" type="text" class="input_number" />km</td>
-
-            <td align="right" id="rad_geld"> 0 &euro;</td>
-          </tr>
-          <tr>
-            <td> PKW </td>
-            <td> Anzahl Personen im Auto </td>
-            <td>
-              <form>
-                <select id="auswahl_mitfahr-1" onchange="berechnung()">
-                  <option value="0.07" selected>1</option>
-                  <option value="0.1">2</option>
-                  <option value="0.15">3</option>
-                  <option value="0.2">4</option>
-                  <option value="0.25">5</option>
-                  <option value="0.27">6</option>
-                  <option value="0.29">7</option>
-                  <option value="0.31">8</option>
-                  <option value="0.33">9</option>
-                  <option value="0.25">schulungsrelevant</option>
-                </select>
-              </form>
-            </td>
-            <td> <input id="pkw_km-1" onchange="berechnung()" type="text" class="input_number" />km</td>
-
-            <td align="right" id="pkw_geld-1">0 &euro;</td>
-            
-            <tr>
-            <td> PKW </td>
-            <td> Anzahl Personen im Auto </td>
-            <td>
-              <form>
-                <select id="auswahl_mitfahr-2" onchange="berechnung()">
-                  <option value="0.07" selected>1</option>
-                  <option value="0.1">2</option>
-                  <option value="0.15">3</option>
-                  <option value="0.2">4</option>
-                  <option value="0.25">5</option>
-                  <option value="0.27">6</option>
-                  <option value="0.29">7</option>
-                  <option value="0.31">8</option>
-                  <option value="0.33">9</option>
-                  <option value="0.25">schulungsrelevant</option>
-                </select>
-              </form>
-            </td>
-            <td> <input id="pkw_km-2" onchange="berechnung()" type="text" class="input_number" />km</td>
-
-            <td align="right" id="pkw_geld-2">0 &euro;</td>
-<!--
-            <tr>
-            <td> PKW </td>
-            <td> Anzahl Personen im Auto </td>
-            <td>
-              <form>
-                <select id="auswahl_mitfahr-3" onchange="berechnung()">
-                  <option value="0.07" selected>1</option>
-                  <option value="0.1">2</option>
-                  <option value="0.15">3</option>
-                  <option value="0.2">4</option>
-                  <option value="0.25">5</option>
-                  <option value="0.27">6</option>
-                  <option value="0.29">7</option>
-                  <option value="0.31">8</option>
-                  <option value="0.33">9</option>
-                  <option value="0.25">schulungsrelevant</option>
-                </select>
-              </form>
-            </td>
-            <td> <input id="pkw_km-3" onchange="berechnung()" type="text" class="input_number" />km</td>
-
-            <td align="right" id="pkw_geld-3">0 &euro;</td>
-   -->         
-                        
-
-          <tr>
+        <!-- PKW Zeile 3 (auskommentiert) -->
+        <!--
+        <tr>
+          <td>PKW</td>
+          <td>Anzahl Personen im Auto</td>
+          <td>
+            <select id="auswahl_mitfahr-3" onchange="berechnung()">
+              <option value="0.07" selected>1</option>
+              <option value="0.1">2</option>
+              <option value="0.15">3</option>
+              <option value="0.2">4</option>
+              <option value="0.25">5</option>
+              <option value="0.27">6</option>
+              <option value="0.29">7</option>
+              <option value="0.31">8</option>
+              <option value="0.33">9</option>
+              <option value="0.25">
+        -->
+     <tr>
             <td> Name Mitfahrer*innen:</td>
             <td></td>
             <td></td>
@@ -368,7 +343,7 @@
             let radkosten = rad_km * rad_pauschale;
             
             let pkw_sum = 0;
-            for (let i = 1; i <=3; ++i) {
+            for (let i = 1; i <=2; ++i) {
               let pkw_km = document.getElementById("pkw_km-"+i).value.replace(/,/g, ".");
               if (isNaN(pkw_km)) {
                 alert(pkw_km + "Bitte füge eine Nummer ein!");
